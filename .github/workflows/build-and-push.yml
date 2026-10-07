@@ -19,4 +19,4 @@ jobs:
         run: docker build -t haloygnacio777/pet-radar-api:latest .
       
       - name: Publicar imagen en Docker Hub
-        run: docker push -it haloygnacio777/pet-radar-api:latest
+        run: docker push haloygnacio777/pet-radar-api:latest
