@@ -1,0 +1,13 @@
+name: Build and push docker iamge
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Hola mundo
+        run: echo "Hello everyone"
