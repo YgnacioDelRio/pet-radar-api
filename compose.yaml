@@ -1,0 +1,43 @@
+services:
+  pet-radar-api:
+    image: pet-radar-api:latest
+    container_name: PetRadarApi
+    port:
+      - 3001:3000
+    envirorment:
+      - MAILER_SERVICE = ${MAILER_SERVICE}
+      - MAILER_USER = ${MAILER_USER}
+      - MAILER_PASSWORD = ${MAILER_PASSWORD}
+      - MAPBOX_TOKEN = ${MAPBOX_TOKEN}
+      - DB_PASSWORD = ${DB_PASSWORD} 
+      - DB_NAME = ${DB_NAME}
+      - DB_USER = ${DB_USER} 
+      - DB_PORT = ${DB_PORT} 
+      - DB_HOST = ${DB_HOST} 
+      - REDIS_HOST = ${REDIS_HOST} 
+      - REDIS_PORT = ${REDIS_PORT} 
+
+
+  postgres:
+    image: postgis/postgis:16-master
+    container_name: 512-petradar-db
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_DB=${DB_NAME}
+    volumes:
+      - postgres_data_db:/var/lib/postgresql
+ 
+  redis:
+    image: redis
+    container_name: 512-petradar-redis
+    ports:
+      - 6379:6379
+    volumes:
+      - redis_data_db:/data
+      # Bind Volumes mapear una carpeta del server con el contenedor
+ 
+volumes:
+  postgres_data_db:
+  redis_data_db:
