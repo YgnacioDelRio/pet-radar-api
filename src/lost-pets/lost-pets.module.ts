@@ -6,9 +6,10 @@ import { EmailModule } from 'src/email/email.module';
 import { LostPetsService } from './lost-pets.service';
 import { CacheModule } from 'src/cache/cache.module';
 import { AuthModule } from 'src/auth/auth.module';
+import { StorageModule } from 'src/storage/storage.module';
 
 @Module({
-  imports: [EmailModule, TypeOrmModule.forFeature([LostPet]), CacheModule, AuthModule],
+  imports: [EmailModule, TypeOrmModule.forFeature([LostPet]), CacheModule, AuthModule, StorageModule],
   providers: [LostPetsService],
   controllers: [LostPetsController],  
 })

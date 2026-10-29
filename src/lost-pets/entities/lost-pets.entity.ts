@@ -34,4 +34,9 @@ export class LostPet{
 
     @Column()
     ownerName?:String;
+
+    @Column({
+        nullable: true
+    })
+    imageUrl?:String;
 }

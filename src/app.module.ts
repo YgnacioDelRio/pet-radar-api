@@ -8,9 +8,10 @@ import { dataSourceOptions } from './db/data-source';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 import { CacheModule } from './cache/cache.module';
+import { StorageModule } from './storage/storage.module';
 
 @Module({
-  imports: [LostPetsModule, EmailModule, TypeOrmModule.forRoot(dataSourceOptions), UsersModule, AuthModule, CacheModule],
+  imports: [LostPetsModule, EmailModule, TypeOrmModule.forRoot(dataSourceOptions), UsersModule, AuthModule, CacheModule, StorageModule],
   controllers: [AppController],
   providers: [AppService],
 })

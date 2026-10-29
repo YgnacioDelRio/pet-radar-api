@@ -24,19 +24,21 @@ export class LostPetsService {
         return pets;
     }
 
-    async createLostPet(dto: CreateLostPetDto){
+    async createLostPet(dto: CreateLostPetDto, url?:string){
         const lostPet = this.lostPetRepository.create({
             type: dto.type,
+            
             name: dto.name,
             phone: dto.phone,
             race: dto.race,
             age: dto.age,
             color: dto.color,
             ownerName: dto.ownerName,
+            imageUrl: url,
             location: {
                 type: 'Point',
                 coordinates: [dto.lon,dto.lat]
-            }
+            },
         });
         return await this.lostPetRepository.save(lostPet);
     }

@@ -34,7 +34,7 @@ const MAP_WIDTH = 536;
 const MAP_HEIGHT = 240;
 const MAP_ZOOM = 15;
 const MAPBOX_TOKEN = envs.MAPBOX_TOKEN;
- 
+const PHOTO_WIDTH = 536;
 // Static map rendered at @2x so it stays sharp on retina while displaying at MAP_WIDTH.
 const buildMapImageUrl = (lat: number, lon: number): string =>
   `https://api.mapbox.com/styles/v1/mapbox/light-v11/static/` +
@@ -43,6 +43,7 @@ const buildMapImageUrl = (lat: number, lon: number): string =>
  
 export const generateLostPetTemplate = (
   createLostPetDto: CreateLostPetDto,
+  imageUrl?: string,
 ): string => {
   const { type, name, lat, lon, phone, race, age, color } = createLostPetDto;
  
@@ -53,6 +54,36 @@ export const generateLostPetTemplate = (
   const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${lat},${lon}`)}`;
   const coords = `${escapeHtml(lat)}, ${escapeHtml(lon)}`;
   const mapImageUrl = escapeHtml(buildMapImageUrl(lat, lon));
+  const photoBlock = imageUrl
+    ? `
+          <tr>
+            <td style="padding:32px 32px 0 32px;">
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border:1px solid #eef0f4;border-radius:14px;overflow:hidden;box-shadow:0 4px 14px rgba(20,26,44,0.08);">
+                <tr>
+                  <td bgcolor="#e8eaf0" align="center" style="background-color:#e8eaf0;line-height:0;">
+                    <img src="${escapeHtml(imageUrl)}" width="${PHOTO_WIDTH}" alt="Foto de ${safeName}" style="display:block;width:100%;max-width:${PHOTO_WIDTH}px;height:auto;border:0;outline:none;font-family:Helvetica,Arial,sans-serif;font-size:13px;color:#5a6274;text-align:center;" />
+                  </td>
+                </tr>
+                <tr>
+                  <td style="padding:14px 20px;background-color:#ffffff;">
+                    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+                      <tr>
+                        <td style="font-family:Helvetica,Arial,sans-serif;">
+                          <div style="font-size:12px;letter-spacing:1px;text-transform:uppercase;color:#8a93a5;">¿Has visto a</div>
+                          <div style="font-size:20px;line-height:26px;font-weight:bold;color:#1b2233;padding-top:2px;">${safeName}?</div>
+                        </td>
+                        <td align="right" style="vertical-align:middle;">
+                          <span style="display:inline-block;background-color:#fff0f3;color:#f0326d;font-family:Helvetica,Arial,sans-serif;font-size:11px;font-weight:bold;letter-spacing:1px;text-transform:uppercase;padding:6px 12px;border-radius:999px;border:1px solid #ffd3dc;">Perdido</span>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+`
+    : '';
   return `<!DOCTYPE html>
 <html lang="es">
 <head>
@@ -77,7 +108,7 @@ export const generateLostPetTemplate = (
               <div style="font-family:Helvetica,Arial,sans-serif;font-size:22px;line-height:30px;color:#ffffff;padding-top:4px;">${safeName} necesita volver a casa</div>
             </td>
           </tr>
- 
+${photoBlock}
           <!-- Intro -->
           <tr>
             <td style="padding:32px 32px 8px 32px;">
@@ -174,3 +205,5 @@ ${detailRow('Edad', formatAge(age))}
 </body>
 </html>`;
 };
+ 
+ 
