@@ -10,7 +10,7 @@ export class EmailService {
         service: envs.MAILER_SERVICE,
         auth:{
             user: envs.MAILER_USER,
-            pass: envs.MAILER_PASSWORD
+            pass: envs.MAILER_TOKEN
         }
     });
 
