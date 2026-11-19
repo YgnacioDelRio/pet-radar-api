@@ -21,3 +21,17 @@ jobs:
       - name: Publicar imagen en Docker Hub
         run: docker push haloygnacio777/pet-radar-api:latest
   
+  deploy:
+    needs: build-and-push
+    runs-on: ubuntu-latest
+    steps:
+      - name: Connect SSH
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.HOST }} # la ip publica ??
+          username: ${{ secrets.USER}} # ubuntu
+          key: ${{ secrets.KEY}} # la key del terraform, ctrl + a
+          script:
+            sudo docker pull haloygnacio777/pet-radar-api:latest
+            cd /containers/pet-radar-api
+            sudo docker compose up -d
