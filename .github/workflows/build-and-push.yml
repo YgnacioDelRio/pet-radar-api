@@ -28,9 +28,9 @@ jobs:
       - name: Connect SSH
         uses: appleboy/ssh-action@v1
         with:
-          host: ${{ secrets.HOST }} # la ip publica ??
-          username: ${{ secrets.USER}} # ubuntu
-          key: ${{ secrets.KEY}} # la key del terraform, ctrl + a
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USER}}
+          key: ${{ secrets.KEY}}
           script:
             sudo docker pull haloygnacio777/pet-radar-api:latest
             cd /containers/pet-radar-api
