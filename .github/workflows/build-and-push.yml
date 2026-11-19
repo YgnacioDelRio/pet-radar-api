@@ -31,7 +31,7 @@ jobs:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USER}}
           key: ${{ secrets.KEY}}
-          script:
+          script: |
             sudo docker pull haloygnacio777/pet-radar-api:latest
             cd /containers/pet-radar-api
             sudo docker compose up -d
